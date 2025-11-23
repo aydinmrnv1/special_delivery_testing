@@ -1,768 +1,1535 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <title>Special Delivery – A Christmas Musical Experience</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
+
     :root {
+
       --bg: #040716;
+
       --bg-deep: #02030b;
+
       --gold: #f0d884;
+
       --gold-soft: #fbecc0;
+
       --text-main: #ffffff;
+
       --accent: #7aa5ff;
+
       --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+
         sans-serif;
+
       --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+
         sans-serif;
+
     }
+
+
 
     * {
+
       box-sizing: border-box;
+
       margin: 0;
+
       padding: 0;
+
     }
+
+
 
     body {
+
       background: radial-gradient(circle at top, #1a2550 0, var(--bg) 40%, var(--bg-deep) 100%);
+
       color: var(--text-main);
+
       font-family: var(--font-body);
+
       line-height: 1.6;
+
       -webkit-font-smoothing: antialiased;
+
       overflow-x: hidden;
+
     }
+
+
 
     /* Starry ambient background */
+
     body::before,
+
     body::after {
+
       content: "";
+
       position: fixed;
+
       inset: 0;
+
       pointer-events: none;
+
       z-index: -3;
+
     }
+
+
 
     body::before {
+
       background-image:
+
         radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.4), transparent),
+
         radial-gradient(1.5px 1.5px at 80% 10%, rgba(255,255,255,0.3), transparent),
+
         radial-gradient(1.5px 1.5px at 30% 70%, rgba(255,255,255,0.3), transparent),
+
         radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.2), transparent);
+
       opacity: 0.5;
+
     }
+
+
 
     body::after {
+
       background: radial-gradient(circle at top, rgba(252, 231, 171, 0.15), transparent 60%);
+
       animation: glowPulse 12s ease-in-out infinite alternate;
+
     }
+
+
 
     @keyframes glowPulse {
+
       0% { opacity: 0.3; }
+
       100% { opacity: 0.8; }
+
     }
+
+
 
     /* Layout utility */
+
     .page {
+
       max-width: 960px;
+
       margin: 0 auto;
+
       padding: 0 1.25rem 4rem;
+
     }
+
+
 
     header.hero {
+
       min-height: 100vh;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       text-align: center;
+
       position: relative;
+
       overflow: hidden;
+
     }
+
+
 
     /* Light beams */
+
     .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 180%;
-      height: 180%;
-      top: -40%;
-      left: -40%;
-      background:
-        conic-gradient(from 200deg,
-          rgba(240,216,132,0.12),
-          transparent 35%,
-          rgba(180,214,255,0.08),
-          transparent 70%,
-          rgba(240,216,132,0.16));
-      mix-blend-mode: screen;
-      opacity: 0.5;
-      animation: rotateLight 40s linear infinite;
-    }
 
     .hero::after {
-      animation-duration: 55s;
-      animation-direction: reverse;
-      opacity: 0.35;
+
+      content: "";
+
+      position: absolute;
+
+      width: 180%;
+
+      height: 180%;
+
+      top: -40%;
+
+      left: -40%;
+
+      background:
+
+        conic-gradient(from 200deg,
+
+          rgba(240,216,132,0.12),
+
+          transparent 35%,
+
+          rgba(180,214,255,0.08),
+
+          transparent 70%,
+
+          rgba(240,216,132,0.16));
+
+      mix-blend-mode: screen;
+
+      opacity: 0.5;
+
+      animation: rotateLight 40s linear infinite;
+
     }
+
+
+
+    .hero::after {
+
+      animation-duration: 55s;
+
+      animation-direction: reverse;
+
+      opacity: 0.35;
+
+    }
+
+
 
     @keyframes rotateLight {
+
       to { transform: rotate(360deg); }
+
     }
+
+
 
     .hero-inner {
+
       position: relative;
+
       z-index: 1;
+
       padding: 3rem 1.5rem 4rem;
+
       background: radial-gradient(circle at top, rgba(3,7,21,0.9), rgba(3,7,21,0.96));
+
       border-radius: 32px;
+
       box-shadow:
+
         0 0 40px rgba(0,0,0,0.6),
+
         0 0 120px rgba(240,216,132,0.15);
+
       border: 1px solid rgba(240,216,132,0.18);
+
       backdrop-filter: blur(8px);
+
     }
+
+
 
     .hero-kicker {
+
       letter-spacing: 0.18em;
+
       text-transform: uppercase;
+
       font-size: 0.82rem;
+
       color: var(--gold-soft);
+
       margin-bottom: 1.25rem;
+
     }
+
+
 
     .hero-title {
+
       font-family: var(--font-heading);
+
       font-size: clamp(2.4rem, 6vw, 3.6rem);
+
       letter-spacing: 0.08em;
+
       text-transform: uppercase;
+
       color: var(--gold);
+
       margin-bottom: 0.75rem;
+
     }
+
+
 
     .hero-subtitle {
+
       font-size: 1rem;
+
       letter-spacing: 0.2em;
+
       text-transform: uppercase;
+
       color: var(--gold-soft);
+
       margin-bottom: 1.2rem;
+
     }
+
+
 
     .hero-line {
+
       width: 72px;
+
       height: 2px;
+
       margin: 0.75rem auto 1.3rem;
+
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
+
       opacity: 0.9;
+
     }
+
+
 
     .hero-text {
+
       max-width: 36rem;
+
       margin: 0 auto 1.8rem;
+
       color: rgba(240,240,255,0.88);
+
       font-size: 0.98rem;
+
     }
+
+
 
     .hero-meta {
+
       font-size: 0.9rem;
+
       color: rgba(240,240,255,0.72);
+
       margin-bottom: 2rem;
+
     }
+
+
 
     .hero-buttons {
+
       display: flex;
+
       justify-content: center;
+
       flex-wrap: wrap;
+
       gap: 0.75rem;
+
     }
+
+
 
     .btn {
+
       border-radius: 999px;
+
       padding: 0.7rem 1.4rem;
+
       border: 1px solid rgba(240,216,132,0.6);
+
       background: radial-gradient(circle at top, rgba(240,216,132,0.12), rgba(4,7,22,0.95));
+
       color: var(--gold-soft);
+
       font-size: 0.9rem;
+
       letter-spacing: 0.12em;
+
       text-transform: uppercase;
+
       text-decoration: none;
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 0.4rem;
+
       cursor: pointer;
+
       transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+
     }
+
+
 
     .btn span.icon {
+
       font-size: 1rem;
+
     }
+
+
 
     .btn-primary {
+
       background: radial-gradient(circle at top, rgba(240,216,132,0.42), rgba(4,7,22,0.96));
+
       color: #1b1305;
+
       font-weight: 600;
+
       box-shadow: 0 0 22px rgba(240,216,132,0.6);
+
     }
+
+
 
     .btn:hover {
+
       transform: translateY(-1px);
+
       box-shadow: 0 0 26px rgba(240,216,132,0.7);
+
       border-color: var(--gold);
+
     }
+
+
 
     /* Section structure */
+
     section {
+
       padding: 3.5rem 0 0;
+
     }
+
+
 
     .section-inner {
+
       background: radial-gradient(circle at top, rgba(255,255,255,0.02), rgba(0,0,0,0.5));
+
       border-radius: 24px;
+
       border: 1px solid rgba(240,216,132,0.18);
+
       padding: 2.25rem 1.6rem 2.4rem;
+
       box-shadow: 0 0 32px rgba(0,0,0,0.6);
+
       position: relative;
+
       overflow: hidden;
+
     }
+
+
 
     .section-inner::before {
+
       content: "";
+
       position: absolute;
+
       inset: -40%;
+
       background: radial-gradient(circle at top, rgba(240,216,132,0.12), transparent 55%);
+
       opacity: 0;
+
       transform: translateY(30px);
+
       transition: opacity 0.8s ease, transform 0.8s ease;
+
       pointer-events: none;
+
     }
+
+
 
     .section-inner.visible::before {
+
       opacity: 1;
+
       transform: translateY(0);
+
     }
+
+
 
     .section-header {
+
       margin-bottom: 1.6rem;
+
       text-align: center;
+
     }
+
+
 
     .section-label {
+
       letter-spacing: 0.18em;
+
       text-transform: uppercase;
+
       font-size: 0.78rem;
+
       color: rgba(240,216,132,0.9);
+
       margin-bottom: 0.4rem;
+
     }
+
+
 
     .section-title {
+
       font-family: var(--font-heading);
+
       font-size: 1.4rem;
+
       letter-spacing: 0.08em;
+
       text-transform: uppercase;
+
       color: var(--gold-soft);
+
       margin-bottom: 0.5rem;
+
     }
+
+
 
     .section-subtitle {
+
       font-size: 0.9rem;
+
       color: rgba(230,235,255,0.8);
+
     }
+
+
 
     .content {
+
       font-size: 0.98rem;
+
       color: rgba(240,240,255,0.9);
+
     }
+
+
 
     .content p + p {
+
       margin-top: 0.75rem;
+
     }
+
+
 
     .two-column {
+
       display: grid;
+
       grid-template-columns: 1fr;
+
       gap: 1.4rem;
+
       margin-top: 1.6rem;
+
     }
 
+
+
     @media (min-width: 720px) {
+
       .two-column {
+
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+
         gap: 2rem;
+
       }
+
     }
+
+
 
     .list-heading {
+
       font-size: 0.88rem;
+
       letter-spacing: 0.16em;
+
       text-transform: uppercase;
+
       color: var(--gold-soft);
+
       margin-bottom: 0.6rem;
+
     }
+
+
 
     ul.clean {
+
       list-style: none;
+
       padding-left: 0;
+
       margin: 0.3rem 0 0;
+
     }
+
+
 
     ul.clean li {
+
       padding: 0.12rem 0;
+
     }
+
+
 
     ul.clean li span.role {
+
       color: var(--gold-soft);
+
       font-weight: 500;
+
     }
+
+
 
     .pill {
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 0.2rem;
+
       padding: 0.2rem 0.6rem;
+
       border-radius: 999px;
+
       background: rgba(7,12,40,0.9);
+
       border: 1px solid rgba(240,216,132,0.35);
+
       font-size: 0.75rem;
+
       letter-spacing: 0.14em;
+
       text-transform: uppercase;
+
       color: rgba(248,241,214,0.92);
+
     }
+
+
 
     .pill + .pill {
+
       margin-left: 0.35rem;
+
     }
+
+
 
     .song-list li {
+
       padding: 0.18rem 0;
+
     }
+
+
 
     .song-index {
+
       display: inline-block;
+
       min-width: 1.5rem;
+
       color: rgba(240,216,132,0.9);
+
       font-variant-numeric: tabular-nums;
+
     }
+
+
 
     .fine-print {
+
       font-size: 0.82rem;
+
       color: rgba(220,225,255,0.76);
+
       margin-top: 1rem;
+
     }
+
+
 
     .choir-grid {
+
       margin-top: 1rem;
+
       font-size: 0.92rem;
+
       column-count: 2;
+
       column-gap: 1.6rem;
+
     }
+
+
 
     @media (min-width: 768px) {
+
       .choir-grid {
+
         column-count: 3;
+
       }
+
     }
+
+
 
     .choir-grid span {
+
       display: block;
+
       padding: 0.1rem 0;
+
     }
+
+
 
     .courtyard-grid {
+
       display: grid;
+
       grid-template-columns: 1fr;
+
       gap: 1.2rem;
+
       margin-top: 1.4rem;
+
     }
+
+
 
     @media (min-width: 720px) {
+
       .courtyard-grid {
+
         grid-template-columns: repeat(2, minmax(0,1fr));
+
       }
+
     }
+
+
 
     .card {
+
       padding: 1rem 1.1rem;
+
       border-radius: 16px;
+
       background: radial-gradient(circle at top left, rgba(240,216,132,0.18), rgba(5,8,24,0.95));
+
       border: 1px solid rgba(240,216,132,0.3);
+
       box-shadow: 0 0 22px rgba(0,0,0,0.5);
+
       font-size: 0.95rem;
+
     }
+
+
 
     .card-title {
+
       font-size: 0.95rem;
+
       letter-spacing: 0.12em;
+
       text-transform: uppercase;
+
       color: var(--gold-soft);
+
       margin-bottom: 0.25rem;
+
     }
+
+
 
     .centered {
+
       text-align: center;
+
     }
+
+
 
     footer {
+
       text-align: center;
+
       padding: 3rem 1rem 1.5rem;
+
       font-size: 0.82rem;
+
       color: rgba(200,210,255,0.68);
+
     }
+
+
 
     .blessing-text {
+
       font-size: 1.1rem;
+
       text-align: center;
+
       max-width: 30rem;
+
       margin: 0 auto;
+
       color: var(--gold-soft);
+
       line-height: 1.7;
+
     }
+
+
 
     .blessing-sub {
+
       margin-top: 0.7rem;
+
       color: rgba(235,235,255,0.86);
+
       font-size: 0.9rem;
+
     }
+
   </style>
+
 </head>
+
 <body>
+
   <div class="page">
+
     <!-- HERO -->
+
     <header class="hero" id="top">
+
       <div class="hero-inner">
+
         <div class="hero-kicker">First Slavic Evangelical Baptist Church Presents</div>
+
         <h1 class="hero-title">Special Delivery</h1>
+
         <div class="hero-subtitle">A Christmas Musical Experience</div>
+
         <div class="hero-line"></div>
+
         <p class="hero-text">
+
           On a quiet night in Bethlehem, Heaven’s greatest gift arrived in the humblest of places. 
+
           Tonight, through music, story, and light, we remember the King who was wrapped not in robes, but in swaddling cloths.
+
         </p>
+
         <p class="hero-meta">
+
           Join us as angels announce, shepherds marvel, and the world receives a Special Delivery.
+
         </p>
+
         <div class="hero-buttons">
+
           <a href="#program" class="btn btn-primary">
+
             <span class="icon">✧</span>
+
             Program
+
           </a>
+
           <a href="#cast" class="btn">
+
             <span class="icon">☧</span>
+
             Cast &amp; Choir
+
           </a>
+
           <a href="#courtyard" class="btn">
+
             <span class="icon">★</span>
+
             Courtyard Experience
+
           </a>
+
         </div>
+
       </div>
+
     </header>
 
+
+
     <!-- PROGRAM -->
+
     <section id="program">
+
       <div class="section-inner reveal">
+
         <div class="section-header">
+
           <div class="section-label">Program</div>
+
           <h2 class="section-title">Tonight’s Musical Journey</h2>
+
           <div class="section-subtitle">
+
             From the first note to the final blessing, the story of Jesus’ birth unfolds in song.
+
           </div>
+
         </div>
+
         <div class="two-column content">
+
           <div>
+
             <div class="list-heading">Opening Greeting</div>
+
             <p><span class="pill">Spoken By</span> Daniel Petrenko</p>
 
+
+
             <div style="margin-top:1.4rem;">
+
               <div class="list-heading">Musical Selections</div>
+
               <ul class="clean song-list">
+
                 <li><span class="song-index">1.</span> Any Moment, Any Time</li>
+
                 <li><span class="song-index">2.</span> Fa-La-La-La-La-La</li>
+
                 <li><span class="song-index">3.</span> Call His Name Jesus</li>
+
                 <li><span class="song-index">4.</span> Do Not Be Afraid</li>
+
                 <li><span class="song-index">5.</span> Angie’s Theme Underscore</li>
+
                 <li><span class="song-index">6.</span> Joseph, Son of David</li>
+
                 <li><span class="song-index">7.</span> You Can Count on Jesus</li>
+
                 <li><span class="song-index">8.</span> Mother to a Savior and King</li>
+
                 <li><span class="song-index">9.</span> Glory in the Highest</li>
+
                 <li><span class="song-index">10.</span> All Is Well</li>
+
                 <li><span class="song-index">11.</span> All Is Well (Underscore)</li>
+
                 <li><span class="song-index">12.</span> A Special Delivery</li>
+
               </ul>
+
             </div>
+
           </div>
+
           <div>
+
             <div class="list-heading">Closing Message</div>
+
             <p><span class="pill">Spoken By</span> Alan Inje</p>
+
             <p style="margin-top:0.9rem;">
+
               As the last notes fade, we remember: the story does not end in Bethlehem. 
+
               The Child in the manger is the Savior on the cross and the risen King who still brings hope into the world.
+
             </p>
+
             <p style="margin-top:0.9rem;">
+
               May every word and melody you hear tonight draw you closer to the One whose birth we celebrate.
+
             </p>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- CAST -->
+
     <section id="cast">
+
       <div class="section-inner reveal">
+
         <div class="section-header">
+
           <div class="section-label">Cast</div>
+
           <h2 class="section-title">Angels, Earth, and Kings</h2>
+
           <div class="section-subtitle">
+
             From heavenly messengers to humble shepherds, each role tells a piece of the story.
+
           </div>
+
         </div>
+
         <div class="two-column content">
+
           <div>
+
             <div class="list-heading">Angels</div>
+
             <ul class="clean">
+
               <li><span class="role">Michael</span> — Mikhail Poddyachiy</li>
+
               <li><span class="role">Gabriel</span> — Jacob Marinov</li>
+
               <li><span class="role">Mikey</span> — Stepan Kurudimov</li>
+
               <li><span class="role">Melody</span> — Zlata Kurudimov</li>
+
               <li><span class="role">Angie</span> — Anna Nagasev</li>
+
               <li><span class="role">Annabelle</span> — Inessa Kruts</li>
+
               <li><span class="role">Victoria</span> — Mila Callahan</li>
+
               <li><span class="role">Luke</span> — Stas Moldovan</li>
+
             </ul>
+
           </div>
+
           <div>
+
             <div class="list-heading">Earth</div>
+
             <ul class="clean">
+
               <li><span class="role">Mary</span> — Daniella Dyachenko</li>
+
               <li><span class="role">Joseph</span> — Max Korneichuk</li>
+
             </ul>
 
-            <div style="margin-top:1.1rem;">
-              <div class="list-heading">Shepherds</div>
-              <ul class="clean">
-                <li>Shepherd 1 — Andrey Kurudimov</li>
-                <li>Shepherd 2 — Vladimir Tyulyu</li>
-                <li>Shepherd 3 — Vitaliy Moldovan</li>
-              </ul>
-            </div>
+
 
             <div style="margin-top:1.1rem;">
-              <div class="list-heading">Wise Men</div>
+
+              <div class="list-heading">Shepherds</div>
+
               <ul class="clean">
-                <li>Wise Man 1 — Pavel Korneichuk</li>
-                <li>Wise Man 2 — Vadim Khramtsov</li>
-                <li>Wise Man 3 — Pavel Kushnir</li>
+
+                <li>Shepherd 1 — Andrey Kurudimov</li>
+
+                <li>Shepherd 2 — Vladimir Tyulyu</li>
+
+                <li>Shepherd 3 — Vitaliy Moldovan</li>
+
               </ul>
+
             </div>
+
+
+
+            <div style="margin-top:1.1rem;">
+
+              <div class="list-heading">Wise Men</div>
+
+              <ul class="clean">
+
+                <li>Wise Man 1 — Pavel Korneichuk</li>
+
+                <li>Wise Man 2 — Vadim Khramtsov</li>
+
+                <li>Wise Man 3 — Pavel Kushnir</li>
+
+              </ul>
+
+            </div>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- CHILDREN'S CHOIR -->
+
     <section id="choir">
+
       <div class="section-inner reveal">
+
         <div class="section-header">
+
           <div class="section-label">Children’s Choir</div>
+
           <h2 class="section-title">Voices of Wonder</h2>
+
           <div class="section-subtitle">
+
             A chorus of young voices, echoing the joy of that holy night.
+
           </div>
+
         </div>
+
         <div class="content">
+
           <div class="choir-grid">
+
             <span>Mila Callahan</span>
+
             <span>Bella Callahan</span>
+
             <span>Anastasia Fauryan</span>
+
             <span>Ruslan Gnedin</span>
+
             <span>Daniela Khamtsova</span>
+
             <span>Benjamin Khamtsov</span>
+
             <span>Inessa Kruts</span>
+
             <span>Nastya Kurudimov</span>
+
             <span>Zlata Kurudimov</span>
+
             <span>Stepan Kurudimov</span>
+
             <span>Emma Kushnir</span>
+
             <span>Solomiia Kushnir</span>
+
             <span>Suzzanna Kushnir</span>
+
             <span>Kiril Lazarev</span>
+
             <span>Leeza Marinov</span>
+
             <span>Elijah Marinov</span>
+
             <span>Milana Nagasev</span>
+
             <span>Christina Nagasev</span>
+
             <span>Mark Nagasev</span>
+
             <span>Timofey Narzullayev</span>
+
             <span>Amira Tsipan</span>
+
             <span>Yuna Tsipan</span>
+
             <span>Vanessa Tyulyu</span>
+
             <span>Lizzie Yurchak</span>
+
             <span>Daniel Yurchak</span>
+
             <span>Sofia Yakimtsev</span>
+
             <span>Ethan Kapakly</span>
+
             <span>Ben Korol</span>
+
             <span>Paul Balatsky</span>
+
             <span>Steven Balatsky</span>
+
             <span>Stas Moldovan</span>
+
             <span>Sarah Kurudimov</span>
+
             <span>Yolianna Narzullayeva</span>
+
           </div>
+
           <p class="fine-print">
+
             Thank you, children, for your courage, joy, and bright hearts. Your voices remind us that the good news of Jesus is for every generation.
+
           </p>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- PRODUCTION TEAM -->
+
     <section id="team">
+
       <div class="section-inner reveal">
+
         <div class="section-header">
+
           <div class="section-label">Production Team</div>
+
           <h2 class="section-title">Behind the Special Delivery</h2>
+
           <div class="section-subtitle">
+
             Many hands and hearts worked together so this story could shine.
+
           </div>
+
         </div>
+
         <div class="two-column content">
+
           <div>
+
             <div class="list-heading">Direction & Music</div>
+
             <ul class="clean">
+
               <li><span class="role">Musical Director</span> — Alyona Nagasev</li>
+
               <li><span class="role">Production Supervisor</span> — Michael Nagasev</li>
+
               <li><span class="role">Conductor</span> — Diana Kurudimov</li>
+
             </ul>
+
+
 
             <div style="margin-top:1.1rem;">
+
               <div class="list-heading">Choir & Script</div>
+
               <ul class="clean">
+
                 <li><span class="role">Choir Assistants</span> — Angelina Nagasev, Nataliya Kaparly</li>
+
                 <li><span class="role">Costume Design &amp; Decorations</span> — Lyudmila Kurudimov</li>
+
                 <li><span class="role">Script Editing &amp; Acting</span> — Yelena Melnichuk</li>
+
               </ul>
+
             </div>
+
           </div>
+
           <div>
+
             <div class="list-heading">Technical & Hospitality</div>
+
             <ul class="clean">
+
               <li><span class="role">Sound Director</span> — Sergey Turchak</li>
+
               <li><span class="role">Stage Light</span> — Vitaliy Lozov</li>
+
               <li><span class="role">Video</span> — Alexander Virsik (FSEBC &amp; Team)</li>
+
               <li><span class="role">Courtyard Hosts</span> — Oxana &amp; Yevgeniy Marinov</li>
+
               <li><span class="role">Photography Director</span> — Nastya Tsiro</li>
+
               <li><span class="role">Activities &amp; Crafts Hosts</span> — Lyuba Kurudimov, Vasilena Kurudimov</li>
+
               <li><span class="role">Café Host</span> — Karina Inje</li>
+
             </ul>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- COURTYARD EXPERIENCE -->
+
     <section id="courtyard">
+
       <div class="section-inner reveal">
+
         <div class="section-header">
+
           <div class="section-label">After the Musical</div>
+
           <h2 class="section-title">The Glowing Courtyard</h2>
+
           <div class="section-subtitle">
+
             Stay, linger, and enjoy fellowship under the Christmas lights.
+
           </div>
+
         </div>
+
         <div class="content">
+
           <p>
+
             After the final note, you’re warmly invited to step outside and continue the celebration. 
+
             We’ve prepared a cozy courtyard where you can savor the beauty of the season together.
+
           </p>
+
+
 
           <div class="courtyard-grid">
+
             <div class="card">
+
               <div class="card-title">Fire &amp; Warmth</div>
+
               <p>
+
                 Gather around the outdoor fireplaces and take in the crisp winter air. 
+
                 Share stories, laugh together, and enjoy the glow of the evening.
+
               </p>
+
             </div>
+
             <div class="card">
+
               <div class="card-title">Hot Chocolate &amp; Café</div>
+
               <p>
+
                 Visit our café area for complimentary hot chocolate, warm drinks, and seasonal treats prepared with love. 
+
                 A warm cup in your hands, and joy in your heart.
+
               </p>
+
             </div>
+
             <div class="card">
+
               <div class="card-title">Lights &amp; Displays</div>
+
               <p>
+
                 Walk through the Christmas light displays designed to reflect the wonder of the nativity. 
+
                 Take a quiet moment to reflect, or simply enjoy the beauty.
+
               </p>
+
             </div>
+
             <div class="card">
+
               <div class="card-title">Photos &amp; Activities</div>
+
               <p>
+
                 Capture the evening at our photo spots and enjoy activities and crafts for families and children. 
+
                 Make memories that will stay with you long after tonight.
+
               </p>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- BLESSING -->
+
     <section id="blessing">
+
       <div class="section-inner reveal centered">
+
         <div class="section-header">
+
           <div class="section-label">Blessing</div>
+
           <h2 class="section-title">Light for the Journey</h2>
+
         </div>
+
         <div class="content">
+
           <p class="blessing-text">
+
             May the Light of Christ, born in Bethlehem,  
+
             fill your heart with peace, your home with joy,  
+
             and your life with hope this Christmas season.
+
           </p>
+
           <p class="blessing-sub">
+
             Thank you for joining us for <em>Special Delivery</em>.  
+
             Merry Christmas from the Special Delivery Musical Team.
+
           </p>
+
         </div>
+
       </div>
+
     </section>
 
+
+
     <footer>
+
       &copy; <!-- You can update this year --> 2025 First Slavic Evangelical Baptist Church · Special Delivery Musical
+
     </footer>
+
   </div>
 
+
+
   <script>
+
     // Reveal sections on scroll (smooth fade/glow)
+
     const observer = new IntersectionObserver(
+
       (entries) => {
+
         entries.forEach((entry) => {
+
           if (entry.isIntersecting) {
+
             entry.target.classList.add("visible");
+
             observer.unobserve(entry.target);
+
           }
+
         });
+
       },
+
       { threshold: 0.18 }
+
     );
 
+
+
     document.querySelectorAll(".section-inner.reveal").forEach((section) => {
+
       observer.observe(section);
+
     });
 
+
+
     // Smooth scrolling for internal links (basic)
+
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
+
       link.addEventListener("click", (e) => {
+
         const targetId = link.getAttribute("href").slice(1);
+
         const target = document.getElementById(targetId);
+
         if (target) {
+
           e.preventDefault();
+
           window.scrollTo({
+
             top: target.offsetTop - 24,
+
             behavior: "smooth",
+
           });
+
         }
+
       });
+
     });
+
   </script>
+
 </body>
+
 </html>
